@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
     connection.query(
         'SELECT * FROM users',
         (error, results) => {
-            console.log(results);
+            // console.log(results);
             res.render('top.ejs');
         }
     );
@@ -64,14 +64,34 @@ app.post('/create', (req, res) => {
         }
     );
 });
+// 編集処理
+app.get('/edit/:id', (req, res) => {
+    connection.query(
+        'select * from items where id = ?',
+        [req.params.id],
+        (error, results) => {
+            res.render('edit.ejs', { item: results[0] });
+        }
+    );
+})
+// 更新処理
+app.post('/update/:id', (req, res) => {
+    connection.query(
+        'update items set name = ? where id = ?',
+        [req.body.itemName, req.params.id], // body=form,params=htmlparam
+        (error, results) => {
+            res.redirect('/index');
+        }
+    )
+})
 // 削除処理
 app.post('/delete/:id', (req, res) => {
     connection.query(
-        'delete from items where id = (?)',
+        'delete from items where id = ?',
         [req.params.id],
         (error, result) => {
             res.redirect('/index');
         })
-})
+});
 //サーバーを起動したら、リクエストを3000番ポートで待ち受ける設定。
 app.listen(3000);

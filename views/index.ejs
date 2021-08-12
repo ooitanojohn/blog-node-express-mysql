@@ -10,7 +10,8 @@
     <header>
       <a href="/" class="header-logo">LIST APP</a>
     </header>
-    <div class="container">
+    <main>
+      <div class="container">
       <div class="container-header">
         <h1>買い物リスト</h1>
         <a href="/new" class="new-button">+ 新規作成</a>
@@ -26,16 +27,22 @@
               <div class="item-data">
                 <span class="id-column"><%= item.id %></span>
                 <span class="name-column"><%= item.name %></span>
-                <div class="item-menu">
+              </div>
+              <div class="item-menu">
+                <a href="/edit/<%= item.id %>">編集</a>
                 <form action="/delete/<%= item.id %>" method="post">
                   <input type="submit" value="削除">
                 </form>
-              </div>
               </div>
             </li>
           <% }) %>
         </ul>
       </div>
     </div>
+    </main>
+
+    <footer>
+        <p class="footer-logo"><small>&copy; 2021 Syuto.N</small></p>
+    </footer>
   </body>
 </html>
